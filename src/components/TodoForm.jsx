@@ -1,51 +1,63 @@
-// src/components/TodoForm.jsx
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { todoSchema } from '../schema/todoSchema'; // Import schema
+import { todoSchema } from '../schema/todoSchema';
 
+
+    // Sử dụng react-hook-form để quản lý form và validate
 const TodoForm = ({ addTodo, updateTodo, editingTodo, setEditingTodo }) => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm({
     resolver: yupResolver(todoSchema),
-    // Đặt defaultValues khi editingTodo thay đổi để điền dữ liệu vào form
     defaultValues: editingTodo ? { task: editingTodo.task } : { task: '' },
   });
 
-  // Dùng useEffect để reset form khi editingTodo thay đổi
+  // Sử dụng useEffect để đặt lại giá trị của form khi editingTodo thay đổi
   useEffect(() => {
     if (editingTodo) {
       reset({ task: editingTodo.task });
     } else {
       reset({ task: '' });
     }
-  }, [editingTodo, reset]); // reset cũng là một dependency cần thêm vào useEffect
+  }, [editingTodo, reset]);
 
+  // Xử lý submit form  
   const onSubmit = (data) => {
     if (editingTodo) {
-      // Nếu đang chỉnh sửa, gọi hàm updateTodo
       updateTodo(editingTodo.id, data.task);
-      setEditingTodo(null); // Kết thúc chế độ chỉnh sửa
+      setEditingTodo(null);
     } else {
-      // Nếu không, gọi hàm addTodo để thêm mới
       addTodo(data.task);
     }
-    reset({ task: '' }); // Reset form sau khi submit thành công (cho cả thêm và sửa)
+    reset({ task: '' });
   };
 
+  // Render component 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="mb-6 flex flex-col md:flex-row gap-2">
-      <div className="flex-grow">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:flex md:space-y-0 md:space-x-4">
+      <div className="flex-grow relative">
         <input
           type="text"
-          placeholder="Thêm công việc mới..."
+          placeholder={editingTodo ? "Cập nhật công việc..." : "Thêm công việc mới..."}
           {...register('task')}
-          className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring ${errors.task ? 'border-red-500' : 'border-gray-300'}`}
+          className={`w-full px-5 py-3 border bg-gray-700/50 text-gray-200 placeholder-gray-400 
+            rounded-xl focus:outline-none focus:ring-2 transition-all duration-300 ease-in-out
+            ${errors.task 
+              ? 'border-red-500 focus:ring-red-500' 
+              : 'border-gray-600/50 focus:border-blue-500/70 focus:ring-blue-500/70'}`}
         />
-        {errors.task && <p className="text-red-500 text-sm mt-1">{errors.task.message}</p>}
+        {errors.task && (
+          <p className="text-red-400 text-sm mt-1 ml-1 absolute">{errors.task.message}</p>
+        )}
       </div>
       <button
         type="submit"
-        className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+        className={`w-full md:w-auto px-8 py-3 rounded-xl text-white font-semibold 
+          shadow-lg transition-all duration-300 ease-in-out 
+          focus:outline-none focus:ring-2 focus:ring-opacity-50 transform hover:-translate-y-1
+          ${editingTodo
+            ? 'bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 focus:ring-green-500'
+            : 'bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 focus:ring-blue-500'
+          }`}
       >
         {editingTodo ? 'Cập nhật' : 'Thêm'}
       </button>
