@@ -4,10 +4,10 @@ import TodoForm from './components/TodoForm';
 import TodoItem from './components/TodoItem';
 
 function App() {
-    // Khởi tạo state todos từ localStorage (nếu có) hoặc mảng rỗng
+    // Khởi tạo state todos từ localStorage (nếu có) hoặc mảng rỗngff
   const [todos, setTodos] = useState(() => {
     const savedTodos = localStorage.getItem('todos');
-    return savedTodos ? JSON.parse(savedTodos) : [];
+    return savedTodos ? JSON.parse(savedTodos) : []; 
   });
   // Theo dõi todo đang được chỉnh sửa
   const [editingTodo, setEditingTodo] = useState(null);
