@@ -2,15 +2,15 @@ import React from 'react';
 
 const TodoItem = ({ todo, onDelete, onToggleComplete, onEdit }) => {
   return (
-    <li className={`relative flex items-center justify-between p-4 rounded-xl transition-all duration-300 ease-in-out
+    <li className={`relative flex items-center justify-between p-4 rounded-xl transition-all duration-300 ease-in-out cursor-pointer
       ${todo.completed 
         ? 'bg-gray-700/50 border border-gray-600/50' 
         : 'bg-gray-800/60 border border-gray-700/50 hover:bg-gray-700/70 hover:border-gray-600/70'}`}
     >
-      <div className="flex items-center flex-grow mr-2">
+      <div className="flex items-center flex-grow mr-2 cursor-pointer">
         <button
           onClick={() => onToggleComplete(todo.id)}
-          className={`flex-shrink-0 w-6 h-6 rounded-full border-2 mr-3 flex items-center justify-center transition-all duration-300
+          className={`flex-shrink-0 w-6 h-6 rounded-full border-2 mr-3 flex items-center justify-center transition-all duration-300 cursor-pointer
             ${todo.completed 
               ? 'bg-green-500/80 border-green-400 text-white' 
               : 'border-gray-500 hover:border-blue-400 group-hover:border-blue-400'}`}
@@ -22,17 +22,17 @@ const TodoItem = ({ todo, onDelete, onToggleComplete, onEdit }) => {
             </svg>
           )}
         </button>
-        <span className={`flex-grow mr-4 text-lg font-medium transition-all duration-300
+        <span className={`flex-grow mr-4 text-lg font-medium transition-all duration-300 cursor-pointer
           ${todo.completed ? 'line-through text-gray-400 italic' : 'text-gray-100'}`}>
           {todo.task}
         </span>
       </div>
       
       {/* Sửa phần này - Luôn hiển thị và tối ưu mobile */}
-      <div className="flex space-x-2 opacity-100">
+      <div className="flex space-x-2 opacity-100 cursor-pointer">
         <button
           onClick={() => onEdit(todo)}
-          className="p-2.5 rounded-lg text-blue-400 hover:bg-blue-500/20 active:bg-blue-500/30 transition-all duration-300 touch-target"
+          className="p-2.5 rounded-lg text-blue-400 hover:bg-blue-500/20 active:bg-blue-500/30 transition-all duration-300 touch-target cursor-pointer"
           aria-label="Edit"
           role="button"
         >
@@ -42,7 +42,7 @@ const TodoItem = ({ todo, onDelete, onToggleComplete, onEdit }) => {
         </button>
         <button
           onClick={() => onDelete(todo.id)}
-          className="p-2.5 rounded-lg text-red-400 hover:bg-red-500/20 active:bg-red-500/30 transition-all duration-300 touch-target"
+          className="p-2.5 rounded-lg text-red-400 hover:bg-red-500/20 active:bg-red-500/30 transition-all duration-300 touch-target cursor-pointer"
           aria-label="Delete"
           role="button"
         >

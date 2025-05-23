@@ -72,19 +72,19 @@ function App() {
           <div className="flex justify-center space-x-4 text-sm">
             <button 
               onClick={() => setFilter('all')}
-              className={`px-3 py-1 rounded-full transition-all duration-300 ${filter === 'all' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
+              className={`cursor-pointer px-3 py-1 rounded-full transition-all duration-300 ${filter === 'all' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
             >
               Tất cả
             </button>
             <button 
               onClick={() => setFilter('active')}
-              className={`px-3 py-1 rounded-full transition-all duration-300 ${filter === 'active' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
+              className={` cursor-pointer px-3 py-1 rounded-full transition-all duration-300 ${filter === 'active' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
             >
               Đang làm
             </button>
             <button 
               onClick={() => setFilter('completed')}
-              className={`px-3 py-1 rounded-full transition-all duration-300 ${filter === 'completed' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
+              className={`cursor-pointer px-3 py-1 rounded-full transition-all duration-300 ${filter === 'completed' ? 'bg-blue-600 text-white' : 'text-gray-400 hover:text-white'}`}
             >
               Đã xong
             </button>
