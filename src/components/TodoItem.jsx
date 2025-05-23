@@ -2,7 +2,7 @@ import React from 'react';
 
 const TodoItem = ({ todo, onDelete, onToggleComplete, onEdit }) => {
   return (
-    <li className={`group relative flex items-center justify-between p-4 rounded-xl transition-all duration-300 ease-in-out
+    <li className={`relative flex items-center justify-between p-4 rounded-xl transition-all duration-300 ease-in-out
       ${todo.completed 
         ? 'bg-gray-700/50 border border-gray-600/50' 
         : 'bg-gray-800/60 border border-gray-700/50 hover:bg-gray-700/70 hover:border-gray-600/70'}`}
@@ -28,11 +28,13 @@ const TodoItem = ({ todo, onDelete, onToggleComplete, onEdit }) => {
         </span>
       </div>
       
-      <div className="flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      {/* Sửa phần này - Luôn hiển thị và tối ưu mobile */}
+      <div className="flex space-x-2 opacity-100">
         <button
           onClick={() => onEdit(todo)}
-          className="p-2 rounded-lg text-blue-400 hover:bg-blue-500/20 transition-all duration-300"
+          className="p-2.5 rounded-lg text-blue-400 hover:bg-blue-500/20 active:bg-blue-500/30 transition-all duration-300 touch-target"
           aria-label="Edit"
+          role="button"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
@@ -40,8 +42,9 @@ const TodoItem = ({ todo, onDelete, onToggleComplete, onEdit }) => {
         </button>
         <button
           onClick={() => onDelete(todo.id)}
-          className="p-2 rounded-lg text-red-400 hover:bg-red-500/20 transition-all duration-300"
+          className="p-2.5 rounded-lg text-red-400 hover:bg-red-500/20 active:bg-red-500/30 transition-all duration-300 touch-target"
           aria-label="Delete"
+          role="button"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>

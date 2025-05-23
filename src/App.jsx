@@ -4,22 +4,16 @@ import TodoForm from './components/TodoForm';
 import TodoItem from './components/TodoItem';
 
 function App() {
-    // Khởi tạo state todos từ localStorage (nếu có) hoặc mảng rỗngff
   const [todos, setTodos] = useState(() => {
     const savedTodos = localStorage.getItem('todos');
     return savedTodos ? JSON.parse(savedTodos) : []; 
   });
-  // Theo dõi todo đang được chỉnh sửa
   const [editingTodo, setEditingTodo] = useState(null);
-  // Lọc todo theo trạng thái
   const [filter, setFilter] = useState('all');
-
-  // Lưu todos vào localStorage khi chúng thay đổi
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
-  // Thêm todo mới
   const addTodo = (task) => {
     const newTodo = {
       id: generateId(),
@@ -30,7 +24,6 @@ function App() {
     setTodos([...todos, newTodo]);
   };
 
-  // Xóa todo
   const deleteTodo = (id) => {
     setTodos(todos.filter(todo => todo.id !== id));
     if (editingTodo && editingTodo.id === id) {
@@ -38,19 +31,16 @@ function App() {
     }
   };
 
-  // Chuyển trạng thái todo
   const toggleComplete = (id) => {
     setTodos(todos.map(todo =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     ));
   };
 
-  // Chỉnh sửa todo
   const handleEdit = (todoToEdit) => {
     setEditingTodo(todoToEdit);
   };
 
-  // Cập nhật todo
   const updateTodo = (id, updatedTask) => {
     setTodos(todos.map(todo =>
       todo.id === id ? { ...todo, task: updatedTask } : todo
@@ -58,14 +48,12 @@ function App() {
     setEditingTodo(null);
   };
 
-  // Lọc todo theo trạng thái
   const filteredTodos = todos.filter(todo => {
     if (filter === 'active') return !todo.completed;
     if (filter === 'completed') return todo.completed;
     return true;
   });
 
-  // Render component
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-indigo-900 py-12 px-4 sm:px-6 lg:px-8 flex justify-center items-start">
       <div className="max-w-md w-full bg-gray-800 bg-opacity-80 backdrop-blur-lg text-white rounded-2xl shadow-2xl p-10 space-y-8 border border-gray-700 transition-all duration-300 hover:shadow-blue-500/20">
